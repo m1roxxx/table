@@ -1,0 +1,68 @@
+.numberRows {
+    position: relative;
+}
+
+.numberRows button {
+    padding:0 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.selectMenu {
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    visibility: hidden;
+    transition: all .2s;
+    top: 100%;
+    opacity: 0;
+}
+
+.selectMenu.active {
+    visibility: visible;
+    opacity: 1;
+    top:calc(100% + 10px);
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.pagination-number {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:0 8px;
+}
+
+.pagination-number.disabled {
+    display: none;
+}
+
+.pagination-number:hover {
+    transform: translateY(-1px);
+}
+
+.pagination-number:active {
+    transform: scale(0.95);
+}
+
+.pagination-number.active {
+    border: 1px #dedede solid;
+}
