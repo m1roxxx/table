@@ -13,6 +13,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 public class DataBaseHandler {
@@ -169,16 +170,27 @@ public class DataBaseHandler {
     connection.close();
   }
 
-  public List<User> getUsers(int limit, int pageNumber) throws SQLException, IOException, ClassNotFoundException {
+  public List<User> getUsers(String searchString, int limit, int pageNumber, String sortColumn, String sortType) throws SQLException, IOException, ClassNotFoundException {
     Connection connection = dataBaseConnection();
 
-    String sql = "SELECT * FROM users LIMIT ? OFFSET ?";
+    String sql = null;
+    PreparedStatement preparedStatement = null;
 
-    System.out.println("SELECT * FROM users LIMIT " + limit + " OFFSET " + limit * pageNumber);
+    System.out.println(sortColumn);
+    System.out.println(sortType);
 
-    PreparedStatement preparedStatement = connection.prepareStatement(sql);
-    preparedStatement.setInt(1, limit);
-    preparedStatement.setInt(2, limit * pageNumber);
+    if(Objects.equals(sortColumn, "") && Objects.equals(sortType, "")) {
+      sql = "SELECT * FROM users WHERE name LIKE ? OR lastName LIKE ? OR email LIKE ? LIMIT ? OFFSET ?";
+    }else {
+      sql = "SELECT * FROM users WHERE name LIKE ? OR lastName LIKE ? OR email LIKE ? ORDER BY " + sortColumn + " " + sortType + " LIMIT ? OFFSET ?";
+    }
+
+    preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setString(1, "%" + searchString + "%");
+    preparedStatement.setString(2, "%" + searchString + "%");
+    preparedStatement.setString(3, "%" + searchString + "%");
+    preparedStatement.setInt(4, limit);
+    preparedStatement.setInt(5, limit * pageNumber);
 
     ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -195,12 +207,15 @@ public class DataBaseHandler {
     return users;
   }
 
-  public int getNumberRows() throws SQLException, IOException, ClassNotFoundException {
+  public int getNumberRows(String searchString) throws SQLException, IOException, ClassNotFoundException {
     Connection connection = dataBaseConnection();
 
-    String sql = "SELECT COUNT(*) FROM users";
+    String sql = "SELECT COUNT(*) FROM users WHERE name LIKE ? OR lastName LIKE ? OR email LIKE ?";
 
     PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setString(1, "%" + searchString + "%");
+    preparedStatement.setString(2, "%" + searchString + "%");
+    preparedStatement.setString(3, "%" + searchString + "%");
 
     ResultSet resultSet = preparedStatement.executeQuery();
     resultSet.next();

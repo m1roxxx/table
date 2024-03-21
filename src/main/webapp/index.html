@@ -19,7 +19,7 @@
 <header class="header">
 
     <div class="search">
-        <input type="text" onblur="this.value = ''">
+        <input type="text">
         <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 24 24" fill="none">
             <path d="M16.6725 16.6412L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#4a2b6e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -48,9 +48,30 @@
     <table class="table">
         <thead>
             <tr>
-                <th>name</th>
-                <th>lastname</th>
-                <th>email</th>
+                <th>
+                    <div onclick="sortPage(this)" class="th">
+                        <p>name</p>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </div>
+                </th>
+                <th>
+                    <div onclick="sortPage(this)" class="th">
+                        <p>lastname</p>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </div>
+                </th>
+                <th>
+                    <div onclick="sortPage(this)" class="th">
+                        <p>email</p>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </div>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -69,7 +90,7 @@
         </div>
 
         <div class="pagination-container">
-            <button onclick="predPage()" class="pagination-number arrow">
+            <button onclick="predPage()" class="pagination-number">
                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
@@ -81,7 +102,7 @@
             <button onclick="openPage(this)" class="pagination-number pred-last disabled"></button>
             <button onclick="openPage(this)" class="pagination-number last disabled"></button>
 
-            <button onclick="nextPage()" class="pagination-number arrow">
+            <button onclick="nextPage()" class="pagination-number">
                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -187,6 +208,6 @@
 </body>
 
 <script src="/script.js"></script>
-<script src="/modalWindows/modal.js"></script>
 <script src="/pagination/pagination.js"></script>
+<script src="/modalWindows/modal.js"></script>
 </html>

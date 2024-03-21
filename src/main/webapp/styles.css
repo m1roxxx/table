@@ -66,6 +66,10 @@ button:active {
     transition: all .5s;
 }
 
+.search svg {
+    /*transition: all .2s;*/
+}
+
 .search:hover input {
     width: 300px;
     border-radius: 12px;
@@ -75,6 +79,12 @@ button:active {
     width: 300px;
     border-radius: 12px;
 }
+
+.search input.blur {
+    width: 300px;
+    border-radius: 12px;
+}
+
 .search svg {
     position: absolute;
     top: 25%;
@@ -166,10 +176,34 @@ button:active {
 }
 
 .table th {
-    padding: 15px;
     text-transform: uppercase;
     background-color: #4a2b6e;
-    text-align: start;
+}
+
+.th {
+    display: flex;
+    padding: 15px;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+.th p {
+    display: flex;
+    align-items: center;
+}
+
+.th svg {
+    transition: all .3s;
+}
+
+.th svg.up {
+    transform: rotate(-0.75turn);
+}
+
+.th svg.down {
+    transform: rotate(-0.25turn);
 }
 
 

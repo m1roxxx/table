@@ -11,6 +11,7 @@ import ru.mirox.table.utils.Response;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 @WebServlet("/api/users")
 public class UserServlet extends HttpServlet {
@@ -21,14 +22,25 @@ public class UserServlet extends HttpServlet {
     Gson gson = new Gson();
     DataBaseHandler dataBaseHandler = new DataBaseHandler();
 
+    String searchString = req.getParameter("searchString");
     int limit = Integer.parseInt(req.getParameter("showRows"));
     int pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
+    String sortColumn = req.getParameter("sortColumn").trim();
+    String sortType = req.getParameter("sortType").trim();
+
+    if(Objects.equals(sortType, "ASC")) {
+      sortType = "ASC";
+    }
+
+    if(Objects.equals(sortType, "DESC")) {
+      sortType = "DESC";
+    }
     try {
       Response response = new Response();
       response.setType("success");
       response.setMessage("array users in object");
-      response.setInfo(Integer.toString(dataBaseHandler.getNumberRows()));
-      response.setObject(dataBaseHandler.getUsers(limit, pageNumber - 1));
+      response.setInfo(Integer.toString(dataBaseHandler.getNumberRows(searchString)));
+      response.setObject(dataBaseHandler.getUsers(searchString, limit, pageNumber - 1, sortColumn, sortType));
       resp.getWriter().write(gson.toJson(response));
     } catch (SQLException | ClassNotFoundException e) {
       throw new RuntimeException(e);
